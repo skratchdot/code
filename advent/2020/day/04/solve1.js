@@ -1,32 +1,36 @@
-const fs = require('fs');
+const { debug, run } = require('../lib');
 
-const lines = fs.readFileSync(`${__dirname}/input`, 'utf8').trim().split('\n');
+const solve1 = (lines) => {
+  const required = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
 
-const required = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
+  let count = 0;
+  let current = new Set();
 
-let count = 0;
-let current = new Set();
-
-const check = () => {
-  for (let i = 0; i < required.length; i++) {
-    if (!current.has(required[i])) {
-      return;
+  const check = () => {
+    for (let i = 0; i < required.length; i++) {
+      if (!current.has(required[i])) {
+        return;
+      }
     }
-  }
-  count++;
+    count++;
+  };
+
+  lines.forEach((line) => {
+    const keys = line
+      .split(/\s+/)
+      .map((v) => v.split(':')[0])
+      .filter((v) => v);
+    keys.forEach((v) => current.add(v));
+    // new passport
+    if (keys.length === 0) {
+      check();
+      current = new Set();
+    }
+  });
+  check();
+  debug({ count });
+  return count;
 };
 
-lines.forEach((line) => {
-  const keys = line
-    .split(/\s+/)
-    .map((v) => v.split(':')[0])
-    .filter((v) => v);
-  keys.forEach((v) => current.add(v));
-  // new passport
-  if (keys.length === 0) {
-    check();
-    current = new Set();
-  }
-});
-check();
-console.log(count);
+run(__dirname, 'inputtest', solve1, 2);
+run(__dirname, 'input', solve1, 216);

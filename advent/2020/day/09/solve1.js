@@ -1,4 +1,4 @@
-const { run } = require('../lib');
+const { debug, run } = require('../lib');
 
 const solve = (lines, preambleSize) => {
   lines = lines.map(parseFloat);
@@ -27,12 +27,12 @@ const solve = (lines, preambleSize) => {
   while (lines.length) {
     fillPreamble();
     buildSums();
-    // console.log({ line: lines[0], preamble, sums})
+    debug({ line: lines[0], preamble, sums });
     if (!sums.includes(lines[0])) {
       return lines[0];
     }
   }
 };
 
-run(__dirname, 'inputtest', solve, 127, [5]);
-run(__dirname, 'input', solve, 10884537, [25]);
+run(__dirname, 'inputtest', solve, 127, { args: [5] });
+run(__dirname, 'input', solve, 10884537, { args: [25] });
