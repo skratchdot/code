@@ -1,17 +1,4 @@
-const assert = require('assert');
-const fs = require('fs');
-
-const lines = fs.readFileSync(`${__dirname}/input`, 'utf8').trim().split('\n');
-
-const testLines = `nop +0
-acc +1
-jmp +4
-acc +3
-jmp -3
-acc -99
-acc +1
-jmp -4
-acc +6`.split('\n');
+const { run } = require('../lib');
 
 const solve = (lines) => {
   const instructions = lines.map((line) => {
@@ -42,5 +29,5 @@ const solve = (lines) => {
   }
 };
 
-assert.deepEqual(solve(testLines), 5);
-assert.deepEqual(solve(lines), 1810);
+run(__dirname, 'inputtest', solve, 5);
+run(__dirname, 'input', solve, 1810);
