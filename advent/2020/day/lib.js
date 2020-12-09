@@ -7,12 +7,13 @@ const log = (...args) =>
     ...args.map((arg) => util.inspect(arg, { depth: null, colors: true }))
   );
 
-const run = (dir, name, fn, expected) => {
+const run = (dir, name, fn, expected, args = []) => {
   const lines = fs
     .readFileSync(path.resolve(dir, name), 'utf8')
     .trim()
     .split('\n');
-  const result = fn(lines);
+  const result = fn(lines, ...args);
+  console.log(fn.name, name, result);
   assert.deepStrictEqual(result, expected);
 };
 
