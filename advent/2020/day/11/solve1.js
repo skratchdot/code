@@ -70,7 +70,7 @@ const printGrid = (grid) => debug(gridString(grid));
 
 const gridString = (grid) => '\n' + grid.map((row) => row.join('')).join('\n');
 
-const solve = (lines) => {
+const solve1 = (lines) => {
   let grid = lines.map((line) => line.split(''));
   let previousGrid;
   do {
@@ -85,5 +85,5 @@ const solve = (lines) => {
     .filter((v) => v === '#').length;
 };
 
-run(__dirname, 'inputtest', solve, 37);
-run(__dirname, 'input', solve, 2368);
+run(__dirname, 'inputtest', solve1, 37);
+run(__dirname, 'input', solve1, 2368);

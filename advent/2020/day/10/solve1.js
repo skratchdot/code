@@ -1,6 +1,6 @@
 const { debug, run } = require('../lib');
 
-const solve = (lines) => {
+const solve1 = (lines) => {
   lines = lines.map(parseFloat).sort((a, b) => a - b);
   // 3 higher than the last
   lines.push(lines[lines.length - 1] + 3);
@@ -36,6 +36,6 @@ const solve = (lines) => {
   return allowedDiffs[0].results.length * allowedDiffs[2].results.length;
 };
 
-run(__dirname, 'inputtest', solve, 7 * 5);
-run(__dirname, 'inputtest2', solve, 22 * 10);
-run(__dirname, 'input', solve, 2376);
+run(__dirname, 'inputtest', solve1, 7 * 5);
+run(__dirname, 'inputtest2', solve1, 22 * 10);
+run(__dirname, 'input', solve1, 2376);

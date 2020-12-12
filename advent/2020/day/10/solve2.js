@@ -34,7 +34,7 @@ then sum the values in the array for an actual "count of leaf nodes" for the giv
 22 1
 
 */
-const solve = (lines) => {
+const solve2 = (lines) => {
   lines = lines.map(parseFloat).sort((a, b) => a - b);
 
   // first value is 0 and last value is 3 higher than the last input
@@ -70,6 +70,6 @@ const solve = (lines) => {
   return result;
 };
 
-run(__dirname, 'inputtest', solve, 8);
-run(__dirname, 'inputtest2', solve, 19208);
-run(__dirname, 'input', solve, 129586085429248);
+run(__dirname, 'inputtest', solve2, 8);
+run(__dirname, 'inputtest2', solve2, 19208);
+run(__dirname, 'input', solve2, 129586085429248);

@@ -1,6 +1,6 @@
 const { debug, run } = require('../lib');
 
-const solve = (lines, preambleSize) => {
+const solve1 = (lines, preambleSize) => {
   lines = lines.map(parseFloat);
   const preamble = [];
   let sums = [];
@@ -34,5 +34,5 @@ const solve = (lines, preambleSize) => {
   }
 };
 
-run(__dirname, 'inputtest', solve, 127, { args: [5] });
-run(__dirname, 'input', solve, 10884537, { args: [25] });
+run(__dirname, 'inputtest', solve1, 127, { args: [5] });
+run(__dirname, 'input', solve1, 10884537, { args: [25] });

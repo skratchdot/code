@@ -1,6 +1,6 @@
 const { run } = require('../lib');
 
-const solve = (lines) => {
+const solve2 = (lines) => {
   let change = -1;
   while (change < lines.length) {
     try {
@@ -48,5 +48,5 @@ const solveHelper = (lines, change) => {
   return acc;
 };
 
-run(__dirname, 'inputtest', solve, 8);
-run(__dirname, 'input', solve, 969);
+run(__dirname, 'inputtest', solve2, 8);
+run(__dirname, 'input', solve2, 969);

@@ -1,6 +1,6 @@
 const { debug, run } = require('../lib');
 
-const solve = (lines, find) => {
+const solve2 = (lines, find) => {
   lines = lines.map(parseFloat);
   for (let i = 0; i < lines.length; i++) {
     let sums = [lines[i]];
@@ -18,5 +18,5 @@ const solve = (lines, find) => {
   }
 };
 
-run(__dirname, 'inputtest', solve, 62, { args: [127] });
-run(__dirname, 'input', solve, 1261309, { args: [10884537] });
+run(__dirname, 'inputtest', solve2, 62, { args: [127] });
+run(__dirname, 'input', solve2, 1261309, { args: [10884537] });

@@ -10,7 +10,7 @@ const { debug, run } = require('../lib');
   Action F means to move forward to the waypoint a number of times equal to the given value.
 */
 
-const solve = (lines) => {
+const solve2 = (lines) => {
   // instance variables
   let waypointEast = 10;
   let waypointNorth = 1;
@@ -62,5 +62,5 @@ const solve = (lines) => {
   return Math.abs(shipEast) + Math.abs(shipNorth);
 };
 
-run(__dirname, 'inputtest', solve, 286);
-run(__dirname, 'input', solve, 28591);
+run(__dirname, 'inputtest', solve2, 286);
+run(__dirname, 'input', solve2, 28591);

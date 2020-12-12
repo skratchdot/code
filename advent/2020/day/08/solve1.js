@@ -1,6 +1,6 @@
 const { run } = require('../lib');
 
-const solve = (lines) => {
+const solve1 = (lines) => {
   const instructions = lines.map((line) => {
     const [op, val] = line.split(' ');
     return {
@@ -29,5 +29,5 @@ const solve = (lines) => {
   }
 };
 
-run(__dirname, 'inputtest', solve, 5);
-run(__dirname, 'input', solve, 1810);
+run(__dirname, 'inputtest', solve1, 5);
+run(__dirname, 'input', solve1, 1810);

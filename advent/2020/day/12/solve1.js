@@ -28,7 +28,7 @@ const turn = (arr, dir, val) => {
   return dir;
 };
 
-const solve = (lines) => {
+const solve1 = (lines) => {
   // instance variables
   let east = 0;
   let north = 0;
@@ -58,5 +58,5 @@ const solve = (lines) => {
   return Math.abs(east) + Math.abs(north);
 };
 
-run(__dirname, 'inputtest', solve, 25);
-run(__dirname, 'input', solve, 381);
+run(__dirname, 'inputtest', solve1, 25);
+run(__dirname, 'input', solve1, 381);
