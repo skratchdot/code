@@ -37,7 +37,8 @@ const solve1 = (lines) => {
   lines.forEach((line) => {
     const [instruction, ...rest] = line.split('');
     let val = parseFloat(rest.join(''));
-    debug({ east, north, dir, line, instruction, val });
+    debug({ east, north, dir });
+    debug({ line, instruction, val });
     const moveForwardMap = {
       [DIR_EAST]: () => (east += val),
       [DIR_NORTH]: () => (north += val),

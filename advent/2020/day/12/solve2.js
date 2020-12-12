@@ -10,6 +10,16 @@ const { debug, run } = require('../lib');
   Action F means to move forward to the waypoint a number of times equal to the given value.
 */
 
+const turn = (val) => (fn) => {
+  while (val > 0) {
+    fn();
+    val -= 90;
+  }
+  if (val !== 0) {
+    throw new Error('you can only turn in increments of 90 degrees');
+  }
+};
+
 const solve2 = (lines) => {
   // instance variables
   let waypointEast = 10;
@@ -20,38 +30,21 @@ const solve2 = (lines) => {
   lines.forEach((line) => {
     const [instruction, ...rest] = line.split('');
     let val = parseFloat(rest.join(''));
-    debug({
-      shipEast,
-      shipNorth,
-      waypointEast,
-      waypointNorth,
-      line,
-      instruction,
-      val,
-    });
+    debug({ shipEast, shipNorth, waypointEast, waypointNorth });
+    debug({ line, instruction, val });
     const instructionMap = {
       N: () => (waypointNorth += val),
       S: () => (waypointNorth -= val),
       E: () => (waypointEast += val),
       W: () => (waypointEast -= val),
-      L: () => {
-        while (val > 0) {
-          let oldEast = waypointEast;
-          let oldNorth = waypointNorth;
-          waypointNorth = oldEast;
-          waypointEast = -oldNorth;
-          val -= 90;
-        }
-      },
-      R: () => {
-        while (val > 0) {
-          let oldEast = waypointEast;
-          let oldNorth = waypointNorth;
-          waypointNorth = -oldEast;
-          waypointEast = oldNorth;
-          val -= 90;
-        }
-      },
+      L: () =>
+        turn(val)(
+          () => ([waypointNorth, waypointEast] = [waypointEast, -waypointNorth])
+        ),
+      R: () =>
+        turn(val)(
+          () => ([waypointNorth, waypointEast] = [-waypointEast, waypointNorth])
+        ),
       F: () => {
         shipEast += val * waypointEast;
         shipNorth += val * waypointNorth;
