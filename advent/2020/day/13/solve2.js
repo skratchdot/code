@@ -1,5 +1,21 @@
 const { debug, run } = require('../lib');
 
+// after reading more, the "multiplier" solution requires next/current to be coprimes,
+// so i "borrowed" a coprime function to test this out in my code.
+// my previous function def broke when passing in: 21,57
+// https://www.tutorialspoint.com/checking-for-coprime-numbers-in-javascript
+const areCoprimes = (num1, num2) => {
+  const smaller = num1 > num2 ? num1 : num2;
+  for (let ind = 2; ind < smaller; ind++) {
+    const condition1 = num1 % ind === 0;
+    const condition2 = num2 % ind === 0;
+    if (condition1 && condition2) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const solve2 = (lines) => {
   const [_, idString] = lines;
   let initialTime;
@@ -18,8 +34,8 @@ const solve2 = (lines) => {
     let current = data[0];
     const next = data[1];
     // we'll run forever in this case
-    if (next.base % current.base === 0) {
-      throw new Error('next cannot be a multiple of current base');
+    if (!areCoprimes(next.base, current.base)) {
+      throw new Error('next must be a coprime of current base');
     }
     // here's the condition we must solve for. when we do, move on to the next data item
     if ((current.time + next.index) % next.base === 0) {
@@ -86,6 +102,7 @@ require('assert').strictEqual(solve2([0, '3,x,x,4']), 9);
 require('assert').strictEqual(solve2([0, '5,4']), 15);
 
 require('assert').throws(() => solve2([0, '5,10']));
+require('assert').throws(() => solve2([0, '21,57']));
 
 run(__dirname, 'inputtest', solve2, 1068781);
 run(__dirname, 'inputtest2', solve2, 3417);
