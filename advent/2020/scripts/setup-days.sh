@@ -22,7 +22,7 @@ run(__dirname, 'input', solve2, 0);
 */
 "
 
-for i in {13..25}
+for i in {1..25}
 do
   day=`printf %02d $i`
   echo "Day: $day"

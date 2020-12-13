@@ -4,9 +4,12 @@
   "description": "advent of code 2020: https://adventofcode.com/2020/",
   "main": "index.js",
   "scripts": {
+    "all": "",
     "format": "prettier --write .",
-    "start": "node scripts/init-day.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup-days": "./scripts/setup-days.sh",
+    "start": "node scripts/start.js",
+    "test": "./scripts/test.sh",
+    "test:debug": "DEBUG=* ./scripts/test.sh"
   },
   "repository": {
     "type": "git",
