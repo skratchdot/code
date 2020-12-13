@@ -2,46 +2,41 @@ const { debug, run } = require('../lib');
 
 const solve2 = (lines) => {
   const [_, idString] = lines;
+  let initialTime;
   const data = idString
     .split(',')
     .map((id, index) => {
       const base = id !== 'x' ? parseFloat(id) : undefined;
-      return { base, index };
+      if (!initialTime) {
+        initialTime = base;
+      }
+      return { base, index, time: initialTime, increment: initialTime };
     })
     .filter((v) => v.base);
   debug({ data });
-  let found = false;
-  let check = data[0].base;
-  while (!found) {
-    found = true;
-    for (let i = 1; i < data.length; i++) {
-      if (data[i].base % data[0].base === 0) {
-        throw new Error('cannot be multiple of base');
-      }
-      if ((check + data[i].index) % data[i].base !== 0) {
-        found = false;
-        break;
-      }
+  while (data.length > 1) {
+    let current = data[0];
+    const next = data[1];
+    // we'll run forever in this case
+    if (next.base % current.base === 0) {
+      throw new Error('next cannot be a multiple of current base');
     }
-    if (!found) {
-      check += data[0].base;
+    // here's the condition we must solve for. when we do, move on to the next data item
+    if ((current.time + next.index) % next.base === 0) {
+      debug('in there');
+      next.time = current.time;
+      // this is the key to having a fast solution.
+      // i had to get hints on "multipliers" before i got to this point 😢
+      next.increment = current.increment * next.base;
+      current = data.shift();
     }
+    current.time += current.increment;
+    debug({ data });
   }
-  data.forEach((d) => {
-    d.answer = check + d.index;
-  });
 
-  let answer;
-  data.forEach((d) => {
-    if (d.index === 0) {
-      answer = d.answer;
-    }
-  });
-  debug({ data, check, answer });
-  return answer;
+  return data[0].time;
 };
 
-/*
 require('assert').strictEqual(solve2([0, '3,5']), 9);
 require('assert').strictEqual(solve2([0, '3,x,5']), 3);
 require('assert').strictEqual(solve2([0, '3,x,x,5']), 12);
@@ -91,7 +86,6 @@ require('assert').strictEqual(solve2([0, '3,x,x,4']), 9);
 require('assert').strictEqual(solve2([0, '5,4']), 15);
 
 require('assert').throws(() => solve2([0, '5,10']));
-*/
 
 run(__dirname, 'inputtest', solve2, 1068781);
 run(__dirname, 'inputtest2', solve2, 3417);
@@ -99,9 +93,7 @@ run(__dirname, 'inputtest3', solve2, 754018);
 run(__dirname, 'inputtest4', solve2, 779210);
 run(__dirname, 'inputtest5', solve2, 1261476);
 run(__dirname, 'inputtest6', solve2, 1202161486);
-/*
-run(__dirname, 'input', solve2, 0);
-*/
+run(__dirname, 'input', solve2, 725850285300475);
 
 /*
 --- Part Two ---

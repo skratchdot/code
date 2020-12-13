@@ -46,6 +46,7 @@ const writeTestFiles = async (dayFolder) => {
 const runTests = async (dayFolder) =>
   new Promise((resolve) => {
     const options = { stdio: 'inherit' };
+    console.clear();
     // prettier-ignore
     spawn('node', [path.resolve(dayFolder, 'solve1.js')], options).on('close', () => {
         spawn('node', [path.resolve(dayFolder, 'solve2.js')], options).on('close', () => {

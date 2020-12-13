@@ -1,19 +1,24 @@
 const { debug, run } = require('../lib');
 
 const solve1 = (lines) => {
-    const [ busTime, idString ] = lines;
-    const ids = idString.split(',').filter(v => v !== 'x').map(parseFloat).map(id => {
-        let time = id;
-        while (time < busTime) {
-            time += id;
-        }
-        return { id, time };
-    }).sort((a, b) => a.time - b.time);
-    const winner = ids[0];
-    const diff = winner.time - busTime;
-    const result = diff * winner.id;
-    debug({ ids, winner, diff, result });
-    return result;
+  const [busTime, idString] = lines;
+  const ids = idString
+    .split(',')
+    .filter((v) => v !== 'x')
+    .map(parseFloat)
+    .map((id) => {
+      let time = id;
+      while (time < busTime) {
+        time += id;
+      }
+      return { id, time };
+    })
+    .sort((a, b) => a.time - b.time);
+  const winner = ids[0];
+  const diff = winner.time - busTime;
+  const result = diff * winner.id;
+  debug({ ids, winner, diff, result });
+  return result;
 };
 
 run(__dirname, 'inputtest', solve1, 295);
