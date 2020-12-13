@@ -8,8 +8,9 @@
     "format": "prettier --write .",
     "setup-days": "./scripts/setup-days.sh",
     "start": "node scripts/start.js",
+    "start:debug": "DEBUG=* npm run start",
     "test": "./scripts/test.sh",
-    "test:debug": "DEBUG=* ./scripts/test.sh"
+    "test:debug": "DEBUG=* npm run test"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "dependencies": {
     "debug": "^4.3.1",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "sane": "^4.1.0"
   }
 }
