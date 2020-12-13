@@ -1,41 +1,97 @@
 const { debug, run } = require('../lib');
 
 const solve2 = (lines) => {
-    const [ _, idString ] = lines;
-    const data = idString.split(',').map((id, index) => {
-        const base = id !== 'x' ? parseFloat(id) : undefined;
-        return { base, index };
-    }).filter(v => v.base).sort((a, b) => b.base - a.base);
-    data.forEach((d, i) => {
-        d.newIndex = d.index - data[0].index;
-    });  
-    let found = false;
-    let check = data[0].base;
-    while (!found) {
-        found = true;
-        for (let i = 1; i < data.length; i++) {
-            if ((check + data[i].newIndex) % data[i].base !== 0) {
-                found = false;
-                break;
-            }
-        }
-        if (!found) {
-            check += data[0].base;
-        }
+  const [_, idString] = lines;
+  const data = idString
+    .split(',')
+    .map((id, index) => {
+      const base = id !== 'x' ? parseFloat(id) : undefined;
+      return { base, index };
+    })
+    .filter((v) => v.base);
+  debug({ data });
+  let found = false;
+  let check = data[0].base;
+  while (!found) {
+    found = true;
+    for (let i = 1; i < data.length; i++) {
+      if (data[i].base % data[0].base === 0) {
+        throw new Error('cannot be multiple of base');
+      }
+      if ((check + data[i].index) % data[i].base !== 0) {
+        found = false;
+        break;
+      }
     }
-    data.forEach(d => {
-        d.answer = check + d.newIndex;
-    });
+    if (!found) {
+      check += data[0].base;
+    }
+  }
+  data.forEach((d) => {
+    d.answer = check + d.index;
+  });
 
-    let answer;
-    data.forEach(d => {
-        if (d.index === 0) {
-            answer = d.answer;
-        }
-    });
-    debug({ data, check, answer });
-    return answer;
+  let answer;
+  data.forEach((d) => {
+    if (d.index === 0) {
+      answer = d.answer;
+    }
+  });
+  debug({ data, check, answer });
+  return answer;
 };
+
+/*
+require('assert').strictEqual(solve2([0, '3,5']), 9);
+require('assert').strictEqual(solve2([0, '3,x,5']), 3);
+require('assert').strictEqual(solve2([0, '3,x,x,5']), 12);
+require('assert').strictEqual(solve2([0, '3,x,x,x,5']), 6);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,5']), 15);
+
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,5']), 9);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,5']), 3);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,x,5']), 12);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,x,x,5']), 6);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,x,x,x,5']), 15);
+
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,x,x,x,x,5']), 9);
+require('assert').strictEqual(solve2([0, '3,x,x,x,x,x,x,x,x,x,x,x,5']), 3);
+
+require('assert').strictEqual(solve2([0, '3,x,x,5,4']), 12);
+require('assert').strictEqual(solve2([0, '3,x,x,5,x,4']), 27);
+require('assert').strictEqual(solve2([0, '3,x,x,5,x,x,4']), 42);
+require('assert').strictEqual(solve2([0, '3,x,x,5,x,x,x,4']), 57);
+require('assert').strictEqual(solve2([0, '3,x,x,5,x,x,x,x,4']), 12);
+
+require('assert').strictEqual(solve2([0, '3,28']), 27);
+
+require('assert').strictEqual(solve2([0, '5,4']), 15);
+require('assert').strictEqual(solve2([0, '5,x,4']), 10);
+require('assert').strictEqual(solve2([0, '5,x,x,4']), 5);
+require('assert').strictEqual(solve2([0, '5,x,x,x,4']), 20);
+
+require('assert').strictEqual(solve2([0, '5,x,x,x,x,4']), 15);
+require('assert').strictEqual(solve2([0, '5,x,x,x,x,x,4']), 10);
+require('assert').strictEqual(solve2([0, '5,x,x,x,x,x,x,4']), 5);
+require('assert').strictEqual(solve2([0, '5,x,x,x,x,x,x,x,4']), 20);
+
+require('assert').strictEqual(solve2([0, '5,x,x,x,x,x,x,x,x,4']), 15);
+
+require('assert').strictEqual(solve2([0, '3,5,4']), 54);
+require('assert').strictEqual(solve2([0, '3,5']), 9);
+require('assert').strictEqual(solve2([0, '3,x,4']), 6);
+
+require('assert').strictEqual(solve2([0, '3,5,x,4']), 9);
+require('assert').strictEqual(solve2([0, '3,5']), 9);
+require('assert').strictEqual(solve2([0, '3,x,x,4']), 9);
+
+require('assert').strictEqual(solve2([0, '3,x,5,4']), 33);
+require('assert').strictEqual(solve2([0, '3,x,5']), 3);
+require('assert').strictEqual(solve2([0, '3,x,x,4']), 9);
+require('assert').strictEqual(solve2([0, '5,4']), 15);
+
+require('assert').throws(() => solve2([0, '5,10']));
+*/
 
 run(__dirname, 'inputtest', solve2, 1068781);
 run(__dirname, 'inputtest2', solve2, 3417);
@@ -43,7 +99,9 @@ run(__dirname, 'inputtest3', solve2, 754018);
 run(__dirname, 'inputtest4', solve2, 779210);
 run(__dirname, 'inputtest5', solve2, 1261476);
 run(__dirname, 'inputtest6', solve2, 1202161486);
+/*
 run(__dirname, 'input', solve2, 0);
+*/
 
 /*
 --- Part Two ---
