@@ -4,13 +4,13 @@ const solve2 = (lines, numTurns) => {
   const nums = lines[0].split(',').map(parseFloat);
 
   // instance vars
-  const spoken = {};
+  const spoken = new Int32Array(numTurns).fill(-1);
   nums.forEach((num, i) => (spoken[num] = i));
   let lastSpoken = nums.slice(-1)[0];
   let turnNumber = nums.length - 1;
 
   while (turnNumber < numTurns - 1) {
-    if (spoken.hasOwnProperty(lastSpoken)) {
+    if (spoken[lastSpoken] !== -1) {
       // how many turns apart the number is from when it was previously spoken.
       const nowSpeak = turnNumber - spoken[lastSpoken];
       spoken[lastSpoken] = turnNumber;
@@ -27,7 +27,7 @@ const solve2 = (lines, numTurns) => {
 
 run(__dirname, 'inputtest', solve2, 436, { args: [2020] });
 run(__dirname, 'input', solve2, 447, { args: [2020] });
-//run(__dirname, 'inputtest', solve2, 175594, { args: [30000000]});
+run(__dirname, 'inputtest', solve2, 175594, { args: [30000000] });
 run(__dirname, 'input', solve2, 11721679, { args: [30000000] });
 
 /*
