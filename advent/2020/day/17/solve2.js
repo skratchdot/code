@@ -121,7 +121,7 @@ const solve2 = (lines, numTurns) => {
 };
 
 run(__dirname, 'inputtest', solve2, 848, { args: [6] });
-run(__dirname, 'input', solve2, 401, { args: [6] });
+run(__dirname, 'input', solve2, 2224, { args: [6] });
 
 /*
 --- Part Two ---
@@ -375,10 +375,5 @@ After the full six-cycle boot process completes, 848 cubes are left in the activ
 
 Starting with your given initial configuration, simulate six cycles in a 4-dimensional space. How many cubes are left in the active state after the sixth cycle?
 
-Answer:
-
-Although it hasn't changed, you can still get your puzzle input.
-
-You can also [Shareon Twitter Mastodon] this puzzle.
-
+Your puzzle answer was 2224.
  */
